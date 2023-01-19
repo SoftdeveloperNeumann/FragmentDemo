@@ -14,6 +14,8 @@ class OutputActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         var city = intent.getStringExtra("city")
+
+
         binding.tvOutput.text = city
     }
 }

@@ -30,10 +30,24 @@ class MainActivity : AppCompatActivity(), OnClickListener {
         if(view is Button) {
             val city = view.text.toString()
             Log.d(TAG, "onClick: $city")
+            if(binding.containerMain == null) {
+                val intent = Intent(this, OutputActivity::class.java)
+                intent.putExtra("city", city)
+                startActivity(intent)
+            }else{
+                // Erstellen eines Fragments
+                val fragment = OutputFragment()
+                // dem Fragment die city übergeben
+                val args = Bundle()
+                args.putString("city", city)
+                fragment.arguments = args
 
-            val intent = Intent(this,OutputActivity::class.java)
-            intent.putExtra("city", city)
-            startActivity(intent)
+                // Aufrufen und Verwenden des erstellten Fragments
+                val transaction = supportFragmentManager.beginTransaction()
+                transaction.replace(R.id.container_main,fragment)
+                transaction.commit()
+
+            }
         }
     }
 }
