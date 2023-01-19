@@ -1,5 +1,6 @@
 package com.example.fragmentdemo
 
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -19,7 +20,14 @@ class OutputFragment : Fragment() {
 
         binding = FragmentOutputBinding.inflate(inflater,container,false)
 
-        binding.tvFragmentOutput.text = arguments?.getString("city","keine Stadt vorhanden") ?: "ohne Argumente aufgerufen"
+        // Prüfen auf Landscape Modus
+        if(resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            binding.tvFragmentOutput.text =
+                arguments?.getString("city", "keine Stadt vorhanden") ?: "ohne Argumente aufgerufen"
+        }else{
+            val intent = activity?.intent
+            binding.tvFragmentOutput.text = intent?.getStringExtra("city") ?: "keine Stadt vorhanden"
+        }
 
         return binding.root
     }
