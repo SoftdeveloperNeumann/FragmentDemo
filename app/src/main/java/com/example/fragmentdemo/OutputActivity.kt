@@ -12,9 +12,10 @@ class OutputActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityOutputBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        // zurück zur MainActivity
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         var city = intent.getStringExtra("city")
-
 
     }
 }

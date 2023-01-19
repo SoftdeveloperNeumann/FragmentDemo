@@ -11,25 +11,30 @@ import com.example.fragmentdemo.databinding.FragmentOutputBinding
 
 class OutputFragment : Fragment() {
 
-    lateinit var binding: FragmentOutputBinding
+    private lateinit var binding: FragmentOutputBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = FragmentOutputBinding.inflate(inflater,container,false)
 
         // Prüfen auf Landscape Modus
         if(resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             binding.tvFragmentOutput.text =
-                arguments?.getString("city", "keine Stadt vorhanden") ?: "ohne Argumente aufgerufen"
+                arguments?.getString("city", "keine Stadt vorhanden") ?: lastValue //"ohne Argumente aufgerufen"
         }else{
             val intent = activity?.intent
             binding.tvFragmentOutput.text = intent?.getStringExtra("city") ?: "keine Stadt vorhanden"
         }
+        lastValue = binding.tvFragmentOutput.text.toString()
 
         return binding.root
+    }
+
+    private companion object{
+        var lastValue = ""
     }
 
 
